@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head(~{}, ~{::title})}">
+    <title>Produto Form</title>
+</head>
+
+<body class="container">
+
+<main class="main-md">
+
+    <h2>Produto</h2>
+
+    <form th:action="${produto.id == 0} ? @{/produto/save} : @{/produto/update}" th:object="${produto}" method="post">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição:</label>
+            <input type="text" th:field="*{descricao}" class="form-control" id="descricao" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="valor" class="form-label">Valor:</label>
+            <input type="text" th:field="*{valor}" class="form-control" id="valor" required/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+
+    </form>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head(~{}, ~{::title})}">
+    <title>Detalhes do Produto</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body class="container">
+
+<main class="my-4 main-md">
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title mb-3">Informações do Produto</h5>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item"><strong>ID:</strong> <span th:text="${produto.id}"></span></li>
+                <li class="list-group-item"><strong>Descrição:</strong> <span th:text="${produto.descricao}"></span></li>
+                <li class="list-group-item"><strong>Valor:</strong> <span th:text="${produto.valor}"></span></li>
+            </ul>
+
+            <div class="d-flex justify-content-between">
+                <a href="/produto/list" class="btn btn-secondary">Voltar</a>
+                <div>
+                    <a href="/produto/edit" th:href="@{'/produto/edit/' + ${produto.id}}" class="btn btn-warning">Editar</a>
+                    <form th:action="@{'/produto/remove/' + ${produto.id}}" method="post" class="d-inline" onsubmit="return confirm('Tem certeza que deseja remover este produto?');">
+                        <button type="submit" class="btn btn-danger">Remover</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
