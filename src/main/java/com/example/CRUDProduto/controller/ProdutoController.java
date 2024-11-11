@@ -4,9 +4,18 @@ import com.example.CRUDProduto.model.entity.Produto;
 import com.example.CRUDProduto.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 @Transactional
 @Controller
@@ -30,6 +39,13 @@ public class ProdutoController {
         return "/produto/list";
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        symbols.setDecimalSeparator(',');
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", symbols);
+        binder.registerCustomEditor(BigDecimal.class, new CustomNumberEditor(BigDecimal.class, decimalFormat, true));
+    }
 
     @PostMapping("/save")
     public String save(@ModelAttribute("produto") Produto produto) {

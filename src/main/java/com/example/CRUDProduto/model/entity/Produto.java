@@ -1,12 +1,8 @@
 package com.example.CRUDProduto.model.entity;
 
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
-
-
-
 @Entity
 public class Produto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
